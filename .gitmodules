@@ -1,0 +1,3 @@
+[submodule "QuoridorModel"]
+	path = QuoridorModel
+	url = git@github.com:CarambulaGit/QuoridorModel.git
