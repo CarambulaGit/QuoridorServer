@@ -69,5 +69,12 @@ namespace GameServer {
             SendTCPDataToAll(_packet);
             Console.WriteLine($"Server send Move {newPos} by {player}");
         }
+        
+        public static void RestartGame() {
+            using Packet _packet = new Packet((int) ServerPackets.restartGame);
+            // _packet.Write(true);
+            GameLogic.Game.Restart();
+            SendTCPDataToAll(_packet);
+        }
     }
 }

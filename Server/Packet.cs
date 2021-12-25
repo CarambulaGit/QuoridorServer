@@ -9,6 +9,7 @@ public enum ServerPackets {
     welcome = 1,
     startGame = 2,
     makeMove = 3,
+    restartGame = 4,
     // todo gameOver?
 }
 
@@ -16,6 +17,7 @@ public enum ServerPackets {
 public enum ClientPackets {
     welcomeReceived = 1,
     sendMove = 2,
+    sendRestart = 3,
 }
 
 public class Packet : IDisposable {

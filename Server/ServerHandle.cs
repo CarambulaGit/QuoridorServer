@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Project.Classes.Field;
 using Project.Classes.Player;
 
 namespace GameServer {
-    class ServerHandle {
+    class ServerHandle
+    {
+
+        public static Dictionary<Client, bool> restartRequest = new Dictionary<Client, bool>();
         public static void WelcomeResponse(int _fromClient, Packet _packet) {
             int _clientIdCheck = _packet.ReadInt();
             string _username = _packet.ReadString();
-
+            restartRequest.Add(Server.clients[_fromClient], false);
             Console.WriteLine(
                 $"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}.");
             if (_fromClient != _clientIdCheck) {
@@ -41,6 +45,17 @@ namespace GameServer {
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+        public static void RestartRequestReceived(int _fromClient, Packet _packet) {
+            restartRequest[Server.clients[_fromClient]] = true;
+            if (restartRequest.Values.All(wantPlayAgain => wantPlayAgain))
+            {
+                ServerSend.RestartGame();
+                foreach (var key in restartRequest.Keys)
+                {
+                    restartRequest[key] = false;
+                }
             }
         }
     }

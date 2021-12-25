@@ -60,6 +60,7 @@ namespace GameServer
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeResponse },
                 { (int)ClientPackets.sendMove, ServerHandle.MoveRequestReceived },
+                { (int)ClientPackets.sendRestart, ServerHandle.RestartRequestReceived }
             };
             Console.WriteLine("Initialized packets.");
         }
