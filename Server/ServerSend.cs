@@ -74,6 +74,7 @@ namespace GameServer {
             using Packet _packet = new Packet((int) ServerPackets.restartGame);
             // _packet.Write(true);
             GameLogic.Game.Restart();
+            Console.WriteLine($"Restart game command send");
             SendTCPDataToAll(_packet);
         }
     }

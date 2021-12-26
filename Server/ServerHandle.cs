@@ -49,6 +49,8 @@ namespace GameServer {
         }
         public static void RestartRequestReceived(int _fromClient, Packet _packet) {
             restartRequest[Server.clients[_fromClient]] = true;
+            Console.WriteLine($"Restart game request received");
+
             if (restartRequest.Values.All(wantPlayAgain => wantPlayAgain))
             {
                 ServerSend.RestartGame();
